@@ -10,7 +10,7 @@ html {
 }
 
 body{
-  background-color: #00BFFF;
+  background-color: #1C1C1C;
   user-select: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -24,6 +24,7 @@ body, h1, p, ol, ul, input, textarea {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
 ol, ul {
@@ -33,6 +34,10 @@ ol, ul {
 img {
   max-width: 100%;
   height: auto;
+}
+
+li {
+  color: black;
 }
 
 code {

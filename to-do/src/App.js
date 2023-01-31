@@ -1,68 +1,31 @@
 import React, { useState } from "react";
+import NewTodo from './components/NewTodo'
+import TodoList from './components/NewList'
 import './App.css';
 
 const App = () => {
-    const enter_key = 13
-    const escape_key = 27
-
-    const initialTodos = [
-        {
-            id: '1',
-            title: 'Estudar Programação',
-            checked: false,
-        },
-        {
-            id: '2',
-            title: 'Sair da Edutec',
-            checked: true,
-        },
-        {
-            id: '3',
-            title: 'Não aguento mais',
-            checked: false,
-        },
-    ]
-
-    const [todos] = useState(initialTodos)
-    const [value, setValue] = useState('')
-    const erase = () => {
-        setValue('')
+    const [todos, setTodos] = useState([])
+    const onNewTodo = (value) => {
+        setTodos([...todos,{
+            id: new Date().getTime(),
+            title: value,
+            checked: false
+        }])
     }
-    const submit = () => {
-        console.log('submit', value)
-        erase()
+    const onToggle = (todo) => {
+        setTodos(todos.map((obj) => (obj.id === todo.id ? {...obj, checked: !todo.checked} : obj)))
     }
-    const onChange = (e) => {
-        setValue(e.target.value)
+    const onRemove = (todo) => {
+        setTodos(todos.filter((obj) => obj.id !== todo.id))
     }
-    const onKeyDown = (e) => {
-        if(e.which === enter_key){
-            submit()
-        }else if (e.which === escape_key){
-            erase()
-        }
-    }
-
     return(
         <section id="app" className="container">
             <header>
                 <h1 className="title">To Do</h1>
             </header>
             <section className="main">
-                <input
-                    className="new-todo"
-                    placeholder="O que você precisa fazer ?"
-                    value={value}
-                    onChange={onChange}
-                    onKeyDown={onKeyDown}
-                />
-                <ul className="todo-list">
-                    {
-                        todos.map((todo) => (
-                            <li>{todo.title}</li>
-                        ))
-                    }
-                </ul>
+                <NewTodo onNewTodo={onNewTodo}/>
+                <TodoList todos={todos} onToggle={onToggle} onRemove={onRemove}/>
             </section>
         </section>
       )
